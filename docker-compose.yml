@@ -1,0 +1,37 @@
+#docker compose version.
+version: '3'
+
+services: 
+    web:                    # container naam van de web applicatie        
+        environment:
+            - CHOKIDAR_USEPOLLING=true
+        #build: .           # kijk in de kuidige directory voor een image en naar Dockerfile
+        build:
+            context: .      #waar komen de files en folders vandaan
+            dockerfile: Dockerfile.dev
+        ports:              # port open zetten
+            - "3000:3000"   # - is een array        
+        stdin_open: true
+        volumes:
+            - /app/node_modules
+            - .:/app        # ouside the container : inside the container 
+        #restart: always     # restart policy code 0, process.exit(0)        
+    
+    tests:   # Enkel voor de npm run test 
+        build:
+            context: .      #waar komen de files en folders vandaan
+            dockerfile: Dockerfile.dev
+        volumes:   # de - is een array 
+            - /app/node_modules
+            - .:/app        # ouside the container : inside the container         
+        command: ["npm", "run", "test"]  #override het run commando 
+        
+        
+        
+  # middels de web en de tests hebben we nu 2 containers, 1 voor de testen en 1 voor de applicatie         
+# doordat we nu docker compose gebuiken kunnen de 2 containers met elkaar praten 
+# zonder poorten te configureren etc. 
+
+            
+            
+                   
