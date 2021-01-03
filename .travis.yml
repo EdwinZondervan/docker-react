@@ -8,3 +8,18 @@ before_install:
     
 script:
     - docker run -e CI=true shivandragon/docker-react npm run test    
+    
+#deploy:
+#    provider: elasticbeanstalk
+#    region: "us-west-2"       #heeft met de regio te maken waar je je beanstalk instance hebt gemaakt 
+#    app: "docker-react"
+#    env: "docker-react-env" 
+#    bucket_name: "elasticbeanstalk-us-west-2-432138921"  een soort van s3 HDD op de omgeving die travis gebruikt om de zip file neer te zetten 
+#    bucket_path: "docker-react"  
+# deploy alleen voor master branch
+#    on:
+#        branch: master
+    
+#   access_key_id: $AWS_ACCESS_KEY
+#   secret_access_key: $AWS_SECRET_KEY 
+    
